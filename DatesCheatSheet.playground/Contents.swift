@@ -83,3 +83,22 @@ let newDate = Calendar.current.date(from: dateComponents2)
 
 
 
+//Date by Adding Days Extension in MMM dd format
+func dateByAddingDays(days : Int, date: Date ) -> String {
+   
+   var numberOfDaysToBeAdded = days;
+   let dateFormatter = DateFormatter()
+   var dateByAddingOneDay = date
+   dateFormatter.dateFormat = "MMM dd"
+   
+   while numberOfDaysToBeAdded > 0
+   {
+      dateByAddingOneDay = Date(timeInterval: 86400, since: dateByAddingOneDay)
+      numberOfDaysToBeAdded -= 1;
+   }
+   
+   return (dateFormatter.string(from: dateByAddingOneDay))
+}
+
+dateByAddingDays(days: 7, date: today)
+
