@@ -91,14 +91,72 @@ func dateByAddingDays(days : Int, date: Date ) -> String {
    var dateByAddingOneDay = date
    dateFormatter.dateFormat = "MMM dd"
    
-   while numberOfDaysToBeAdded > 0
+   
+   if numberOfDaysToBeAdded > 1
    {
-      dateByAddingOneDay = Date(timeInterval: 86400, since: dateByAddingOneDay)
-      numberOfDaysToBeAdded -= 1;
+      while numberOfDaysToBeAdded > 0
+      {
+         dateByAddingOneDay = Date(timeInterval: 86400, since: dateByAddingOneDay)
+         numberOfDaysToBeAdded -= 1;
+      }
    }
+   else
+   {
+      while numberOfDaysToBeAdded < 0
+      {
+         dateByAddingOneDay = Date(timeInterval: -86400, since: dateByAddingOneDay)
+         numberOfDaysToBeAdded += 1;
+      }
+   }
+   
+   
+   
    
    return (dateFormatter.string(from: dateByAddingOneDay))
 }
 
-dateByAddingDays(days: 7, date: today)
+dateByAddingDays(days: -7, date: today)
+
+
+
+//getWeekDay Function - Week starts Sunday
+func getWeekday(date: Date) -> Int {
+   let myCalendar = Calendar(identifier: .gregorian)
+   let weekDay = myCalendar.component(.weekday, from: date)
+   
+   return weekDay
+}
+
+getWeekday(date: today)
+
+
+//getWeekDayString Function - Week starts Sunday
+func getWeekDayString(weekDay: Int) -> String
+{
+   var weekDayString = ""
+
+   switch weekDay {
+   case 1:
+      weekDayString = "Sunday"
+   case 2:
+      weekDayString = "Monday"
+   case 3:
+      weekDayString = "Tuesday"
+   case 4:
+      weekDayString = "Wednesday"
+   case 5:
+      weekDayString = "Thursday"
+   case 6:
+      weekDayString = "Friday"
+   case 7:
+      weekDayString = "Saturday"
+   default:
+      break;
+   }
+   return weekDayString
+}
+
+
+getWeekDayString(weekDay: getWeekday(date: today))
+
 
